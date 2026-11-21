@@ -20,12 +20,10 @@
 <ul class="t" style="margin: 0; padding-left: 28px;">
 <li>Stateless: โหลดโมเดลครั้งเดียว เพิ่ม worker/replica ได้</li>
 <li>CPU-only ~40 ms ต่อ request รวม SHAP</li>
-<li>Batch endpoint จำกัดขนาด (413) กัน overload</li>
-<li>Production: API gateway, queue/DB แทน JSONL, MLflow Registry + canary</li>
-</ul>
+<li>Batch endpoint จำกัดขนาด (413) กัน overload</li></ul>
 </div>
 </div>
 </div>
 <div class="pg"></div>
-<aside>หัวข้อ 3.6 โมเดลถูก deploy เป็น REST API ด้วย FastAPI มี 5 endpoint ที่สำคัญคือ predict ซึ่งคืนความน่าจะเป็น คะแนน band และเหตุผล FastAPI สร้างเอกสาร OpenAPI ให้อัตโนมัติที่ /docs การยืนยันว่า deploy แล้วทำงานถูก มีทั้ง unit test ผ่าน TestClient, script ที่ยิงไปยัง server จริง และ Postman ด้านการ scale ระบบเป็น stateless จึงเพิ่มจำนวน worker หรือ replica ได้ตรง ๆ ส่วน production ควรมี API gateway สำหรับ authentication และใช้ MLflow Model Registry สำหรับ rollback</aside>
+<aside>หัวข้อ 3.6 โมเดลถูก deploy เป็น REST API ด้วย FastAPI มี 5 endpoint ที่สำคัญคือ predict ซึ่งคืนความน่าจะเป็น คะแนน band และเหตุผล FastAPI สร้างเอกสาร OpenAPI ให้อัตโนมัติที่ /docs การยืนยันว่า deploy แล้วทำงานถูก มีทั้ง unit test ผ่าน TestClient, script ที่ยิงไปยัง server จริง และ Postman ด้านการ scale ระบบเป็น stateless จึงเพิ่มจำนวน worker หรือ replica ได้ตรง ๆ</aside>
 </section>

@@ -8,13 +8,11 @@
 <div class="card"><h3>✘ Edge (เครื่องสาขา)</h3><p class="t">sync หลายเครื่อง เสี่ยงใช้คนละเวอร์ชัน (B5)</p></div>
 <div class="card"><h3>✘ Embedded / mobile</h3><p class="t">โมเดลถูก reverse-engineer เพื่อ “เล่นระบบ” ได้</p></div>
 </div>
-<p class="eyebrow">PERFORMANCE FACTORS นอกเหนือ ACCURACY</p>
+<p class="eyebrow">2.3.3 · PERFORMANCE FACTORS</p>
 <div class="row grow">
-<div class="card"><p class="num">~40 ms</p><p class="label">ต่อ request รวม SHAP (เป้า p95 &lt; 300 ms)</p></div>
-<div class="card"><p class="num">1.5 MB</p><p class="label">ขนาดโมเดล ใช้ CPU อย่างเดียว ไม่ต้อง GPU</p></div>
-<div class="card"><p class="num">Brier</p><p class="label">calibration เป็นเกณฑ์คัดโมเดล เพราะ UI แสดง PD เป็น %</p></div>
-<div class="card"><p class="num">นาที</p><p class="label">train ครบ 6 versions บน 307k แถว retrain รายเดือนได้</p></div>
+<div class="card"><p class="num">~40 ms</p><p class="label">Prediction speed: ต่อ request รวมคำอธิบาย (เป้า p95 &lt; 300 ms)</p></div>
+<div class="card"><p class="num">1.5 MB</p><p class="label">Model size: เล็ก ใช้ CPU อย่างเดียว ไม่ต้อง GPU</p></div>
 </div>
 <div class="pg"></div>
-<aside>หัวข้อ 2.3.2 และ 2.3.3 ผมเลือก deploy แบบ server-side บน private cloud ของธนาคาร เพราะข้อมูลสินเชื่อเป็นข้อมูลส่วนบุคคลตาม PDPA ทุกสาขาจะใช้โมเดลเวอร์ชันเดียวกัน และ audit ได้ ส่วน edge มีปัญหาเรื่องเวอร์ชันไม่ตรงกัน และ embedded เสี่ยงถูก reverse-engineer สำหรับปัจจัยด้าน performance นอกจาก accuracy แล้ว ระบบตอบได้ราว 40 มิลลิวินาทีรวมคำอธิบาย โมเดลมีขนาดแค่ 1.5 MB ใช้ CPU ได้ calibration สำคัญเพราะหน้าจอแสดงเปอร์เซ็นต์ความเสี่ยงตรง ๆ และ train ใหม่ได้ภายในไม่กี่นาที</aside>
+<aside>หัวข้อ 2.3.2 และ 2.3.3 ผมเลือก deploy แบบ server-side บน private cloud ของธนาคาร เพราะข้อมูลสินเชื่อเป็นข้อมูลส่วนบุคคลตาม PDPA ทุกสาขาจะใช้โมเดลเวอร์ชันเดียวกัน และ audit ได้ ส่วน edge มีปัญหาเรื่องเวอร์ชันไม่ตรงกัน และ embedded เสี่ยงถูก reverse-engineer สำหรับปัจจัยด้าน performance นอกจาก accuracy ระบบตอบได้ราว 40 มิลลิวินาทีรวมคำอธิบาย และโมเดลมีขนาดแค่ 1.5 MB ใช้ CPU ได้</aside>
 </section>
