@@ -1,0 +1,22 @@
+<section id="versions">
+<div class="head">
+<p class="eyebrow">3.3 · MODEL VERSIONING &amp; EXPERIMENTATION</p>
+<h2>6 versions เปลี่ยนทีละอย่าง (validation set)</h2>
+</div>
+<table>
+<tr class="th"><th style="width: 27%;">Version</th><th style="width: 25%;">สิ่งที่เปลี่ยน</th><th style="width: 12%; text-align: right;">ROC-AUC</th><th style="width: 15%; text-align: right;">Brier</th><th style="width: 11%; text-align: right;">FPR gap</th><th style="width: 10%; text-align: right;">Latency</th></tr>
+<tr><td>v1_logreg_basic</td><td>baseline</td><td style="text-align: right;">0.743</td><td style="text-align: right;">0.069</td><td style="text-align: right;">0.049</td><td style="text-align: right;">2 ms</td></tr>
+<tr><td>v2_logreg_engineered</td><td>preprocessing</td><td style="text-align: right;">0.744</td><td style="text-align: right;">0.069</td><td style="text-align: right;">0.044</td><td style="text-align: right;">2 ms</td></tr>
+<tr><td>v3_random_forest</td><td>architecture</td><td style="text-align: right;">0.749</td><td style="text-align: right;">0.183 ✘ ตก</td><td style="text-align: right;">0.037</td><td style="text-align: right;">26 ms</td></tr>
+<tr><td>v4_hgb_default</td><td>architecture</td><td style="text-align: right;">0.758</td><td style="text-align: right;">0.068</td><td style="text-align: right;">0.043</td><td style="text-align: right;">9 ms</td></tr>
+<tr><td>v5_hgb_tuned</td><td>hyper-parameters</td><td style="text-align: right;">0.761</td><td style="text-align: right;">0.068</td><td style="text-align: right;">0.043</td><td style="text-align: right;">14 ms</td></tr>
+<tr class="hl"><td>v6_hgb_tuned_reweighed ✔</td><td>fairness mitigation</td><td style="text-align: right;">0.761</td><td style="text-align: right;">0.068</td><td style="text-align: right;">0.016</td><td style="text-align: right;">32 ms</td></tr>
+</table>
+<div class="row">
+<div class="card"><p class="t"><b>Linear → Boosting</b> +0.014 AUC: ความสัมพันธ์ไม่เป็นเชิงเส้น</p></div>
+<div class="card"><p class="t"><b>Random Forest</b> ตก calibration: class_weight ทำให้ PD สูงเกินจริง</p></div>
+<div class="card"><p class="t"><b>v5 กับ v6</b> AUC เท่ากัน แต่ v6 ลด FPR gap ตามเพศ 63%</p></div>
+</div>
+<div class="pg"></div>
+<aside>หัวข้อ 3.3 ผมเปรียบเทียบโมเดล 6 version โดยเปลี่ยนทีละอย่าง v1 ถึง v2 เปลี่ยน preprocessing, v3 และ v4 เปลี่ยน architecture, v5 ปรับ hyper-parameter และ v6 เพิ่ม fairness mitigation ผลคือ gradient boosting ดีกว่า linear อย่างชัดเจน Random Forest มี AUC ไม่แย่ แต่ Brier score สูงกว่าตัวอื่นเกือบ 3 เท่า เพราะ class weight ทำให้ความน่าจะเป็นสูงเกินจริง จึงตกเกณฑ์ calibration ส่วน v5 กับ v6 มี AUC แทบเท่ากัน แต่ v6 ลดช่องว่างระหว่างเพศได้ 63%</aside>
+</section>

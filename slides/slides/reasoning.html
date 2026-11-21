@@ -1,0 +1,38 @@
+<section id="reasoning">
+<div class="head">
+<p class="eyebrow">3.5 · PREDICTION REASONING</p>
+<h2>อธิบายรายเคสเป็นภาษาคน (3 ตัวอย่างจาก test set)</h2>
+</div>
+<div class="row grow">
+<div class="card low">
+<p class="pill low">LOW_RISK · score 627</p>
+<p class="num low">PD 1.2%</p>
+<p class="t">▼ คะแนนเครดิตเฉลี่ย 0.70 (−0.78)</p>
+<p class="t">▼ payment rate 0.098 (−0.71)</p>
+<p class="t">▲ โสด (+0.13)</p>
+<p class="t">▼ อายุ 61 ปี (−0.12)</p>
+<p class="label">ผลจริง: ชำระปกติ ✔</p>
+</div>
+<div class="card mid">
+<p class="pill mid">ก้ำกึ่ง · score 468</p>
+<p class="num mid">PD 16.4%</p>
+<p class="t">▲ คะแนนเครดิตเฉลี่ย 0.34 (+0.80)</p>
+<p class="t">▲ payment rate 0.051 (+0.23)</p>
+<p class="t">▲ คะแนนเครดิต 1 = 0.14 (+0.18)</p>
+<p class="t">▼ ปริญญาตรี (−0.17)</p>
+<p class="label">ผลจริง: ชำระปกติ</p>
+</div>
+<div class="card high">
+<p class="pill high">HIGH_RISK · score 414</p>
+<p class="num high">PD 33.6%</p>
+<p class="t">▲ คะแนนเครดิตเฉลี่ย 0.26 (+0.80)</p>
+<p class="t">▲ ราคาสินค้า/วงเงิน 0.70 (+0.34)</p>
+<p class="t">▲ payment rate 0.047 (+0.24)</p>
+<p class="t">▼ อายุ 24 ปี (−0.14, interaction)</p>
+<p class="label">ผลจริง: ชำระปกติ → เหตุผลที่ไม่ปฏิเสธอัตโนมัติ</p>
+</div>
+</div>
+<p class="small muted">▲ เพิ่มความเสี่ยง · ▼ ลดความเสี่ยง · ตัวเลขในวงเล็บ = SHAP (log-odds) · unit test ยืนยัน base + ΣSHAP = prediction</p>
+<div class="pg"></div>
+<aside>หัวข้อ 3.5 คือการอธิบายผลรายเคส ระบบเลือก 3 เคสจาก test set อัตโนมัติ เคสเสี่ยงต่ำ PD 1.2% เหตุผลหลักคือคะแนนเครดิตดี เคสก้ำกึ่ง 16% ถูกดึงขึ้นด้วยคะแนนเครดิตต่ำ เคสเสี่ยงสูง 34% ที่น่าสนใจคือเคสนี้ชำระหนี้ปกติจริง PD 34% ยังแปลว่ามีโอกาสชำระได้ถึง 66% นี่คือเหตุผลที่ระบบไม่ปฏิเสธอัตโนมัติ แต่ส่งให้คนพิจารณา ส่วนอายุ 24 ปีที่ลดความเสี่ยงในเคสนี้เป็น interaction effect ของ tree model ซึ่งต้องอธิบายให้ผู้ใช้เข้าใจ</aside>
+</section>

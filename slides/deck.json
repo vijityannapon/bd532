@@ -1,0 +1,21 @@
+{
+  "v": 5,
+  "createdOnFiles": {"v": 1, "at": "2026-11-21T14:20:00Z"},
+  "lists": "css",
+  "format": {"v": 1, "shared": ["project/deck.css"]},
+  "title": "CreditLens — BD532 Term Project",
+  "cover": "cover",
+  "order": ["cover", "problem", "whyai", "goals", "workflow", "reqspec", "canvas", "fta", "mitigation", "ux", "deploy", "data", "pipeline", "versions", "mlflow", "results", "fairness", "shap", "reasoning", "api", "interface", "sequence", "testing", "challenges", "conclusion", "thanks"],
+  "sections": {
+    "s1": {"description": "Section 1 — ปัญหา ผู้ได้รับผลกระทบ และเหตุผลที่ต้องใช้ AI", "start": "cover"},
+    "s2": {"description": "Section 2 — เป้าหมาย workflow ข้อกำหนด ความเสี่ยง UX และ deployment", "start": "goals"},
+    "s3": {"description": "Section 3 — ข้อมูล การ train การเปรียบเทียบโมเดล fairness explainability และ API", "start": "data"},
+    "s4": {"description": "Section 4 — สัญญา UI-Model, sequence, การทดสอบ และปัญหาที่เจอ", "start": "interface"},
+    "s5": {"description": "สรุปผลและเส้นทางสู่ Independent Study", "start": "conclusion"}
+  },
+  "faces": {
+    "kanit": {"family": "Kanit", "href": "https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap"},
+    "sarabun": {"family": "Sarabun", "href": "https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap"}
+  },
+  "designSystems": []
+}

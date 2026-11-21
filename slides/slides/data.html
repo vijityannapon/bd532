@@ -1,0 +1,16 @@
+<section id="data">
+<div class="head">
+<p class="eyebrow">3.1 · DATA EXPLORATION</p>
+<h2>ข้อมูลจริง: Home Credit Default Risk</h2>
+</div>
+<div class="row">
+<div class="card"><p class="num" style="font-size: 64px;">307,511</p><p class="label">คำขอสินเชื่อ ใช้ 23 คอลัมน์ → 28 features</p></div>
+<div class="card"><p class="num high" style="font-size: 64px;">8.07%</p><p class="label">ผิดนัด → imbalance 11.4 : 1 (accuracy ใช้ไม่ได้)</p></div>
+<div class="card"><p class="num mid" style="font-size: 64px;">56%</p><p class="label">EXT_SOURCE_1 หาย · OCCUPATION หาย 31%</p></div>
+<div class="card"><p class="num mid" style="font-size: 64px;">18%</p><p class="label">DAYS_EMPLOYED = 365243 (sentinel) → NaN + flag</p></div>
+</div>
+<img class="shot" src="/_blob/8f3e2789a59ad35584265eebca2a14e8" alt="EDA: class distribution, missing rate และการกระจายอายุแยกตามการผิดนัด" style="width: 1664px; height: 270px;">
+<p class="small muted">Historical difference: ผู้ชายผิดนัด 10.1% เทียบกับผู้หญิง 7.0% · อายุ &lt;30 ปี 11.4% เทียบกับ &gt;50 ปี 5.7% · สัมพันธ์สูงสุด: คะแนนเครดิตภายนอก (r = −0.22)</p>
+<div class="pg"></div>
+<aside>Section 3 คือ ML Implementation เริ่มจาก data exploration ข้อมูลมี 307,511 คำขอ อัตราผิดนัด 8% แปลว่าถ้าทายว่าไม่ผิดนัดทุกคนจะได้ accuracy 92% จึงต้องใช้ metric อื่น พบปัญหาคุณภาพข้อมูล คือคะแนนเครดิตภายนอกหายเกินครึ่ง และมีค่า 365243 ซึ่งเป็นรหัสแทนคนเกษียณหรือไม่มีงาน ผมแปลงเป็นค่าว่างและเพิ่ม flag นอกจากนี้ข้อมูลมีความต่างตามเพศและอายุอยู่แล้ว ซึ่งต้องระวังเรื่อง fairness ต่อไป</aside>
+</section>

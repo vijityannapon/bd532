@@ -1,0 +1,39 @@
+<section id="reqspec" class="alt">
+<div class="head">
+<p class="eyebrow">2.2.2 · AI TASK REQUIREMENTS</p>
+<h2>ENV ∧ SPEC ⊨ REQ</h2>
+</div>
+<div class="row grow">
+<div class="card">
+<p class="pill">REQ · โลกจริง</p>
+<ul class="t" style="margin: 0; padding-left: 28px;">
+<li>สินเชื่อที่อนุมัติผิดนัดน้อยลง</li>
+<li>ไม่เลือกปฏิบัติตามเพศหรืออายุ</li>
+<li>ผู้กู้ได้รับเหตุผลที่เข้าใจได้</li>
+<li>มนุษย์ตัดสินใจขั้นสุดท้าย</li>
+</ul>
+</div>
+<div class="card ai">
+<p class="pill">SPEC · ระบบ</p>
+<ul class="t" style="margin: 0; padding-left: 28px;">
+<li>คืน PD + band ภายใน 300 ms</li>
+<li>ROC-AUC ≥ 0.75 บน test set</li>
+<li>ไม่ใช้ gender เป็น feature</li>
+<li>คืนเหตุผล top-k ทุก prediction</li>
+<li>input ผิด → 422, ขัดแย้ง → 400</li>
+</ul>
+</div>
+<div class="card">
+<p class="pill">ENV · สมมติฐาน</p>
+<ul class="t" style="margin: 0; padding-left: 28px;">
+<li>ข้อมูลที่กรอกตรงกับเอกสาร</li>
+<li>ผู้กู้ใหม่คล้ายข้อมูลในอดีต</li>
+<li>มีคะแนน bureau ส่วนใหญ่</li>
+<li>เจ้าหน้าที่ตรวจเคส REVIEW/HIGH จริง</li>
+</ul>
+</div>
+</div>
+<p class="small muted">รายงานมีครบ REQ-1…4, SPEC-1…8, ENV-1…5 · ENV-5: มี label เฉพาะคนที่เคยได้รับอนุมัติ (selection bias)</p>
+<div class="pg"></div>
+<aside>หัวข้อ 2.2.2 ใช้กรอบ REQ, SPEC, ENV ความคิดหลักคือ ถ้าสมมติฐานเรื่องสภาพแวดล้อมเป็นจริง และระบบทำงานตาม spec ความต้องการในโลกจริงก็จะเป็นจริง ตัวอย่างเช่น REQ ว่าไม่เลือกปฏิบัติตามเพศ จับคู่กับ SPEC ว่าไม่ใช้ gender เป็น feature ซึ่งผมทดสอบจริงในส่วน interface testing ส่วน ENV สำคัญคือเจ้าหน้าที่ต้องตรวจเคสเสี่ยงจริง ถ้าข้อนี้ไม่เป็นจริง ระบบจะเสี่ยง ซึ่งจะเห็นอีกครั้งใน fault tree</aside>
+</section>

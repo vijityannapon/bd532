@@ -1,0 +1,30 @@
+<section id="fta">
+<div class="head">
+<p class="eyebrow">2.2.4 · FAULT TREE ANALYSIS</p>
+<h2>ความผิดพลาดต้องเกิดพร้อมกันทั้งโมเดลและมนุษย์</h2>
+</div>
+<div class="row grow" style="align-items: stretch; gap: 0;">
+<div class="card high" style="flex: 0.8; justify-content: center;">
+<p class="pill high">TOP EVENT</p>
+<h3>ตัดสินใจสินเชื่อผิดเพราะ AI</h3>
+<p class="t">OR ของ G1, G2</p>
+</div>
+<x-connector class="arr"></x-connector>
+<div class="col" style="flex: 1; gap: 16px;">
+<div class="card"><h3>G1 · อนุมัติคนที่จะผิดนัด</h3><p class="t">= โมเดลประเมินต่ำไป AND มนุษย์ไม่จับ</p></div>
+<div class="card"><h3>G2 · ปฏิเสธลูกค้าดี / ไม่เป็นธรรม</h3><p class="t">= โมเดลประเมินสูงไป AND มนุษย์ไม่จับ</p></div>
+</div>
+<x-connector class="arr"></x-connector>
+<div class="col" style="flex: 1.2; gap: 16px;">
+<div class="card"><h3>ฝั่งโมเดล (OR)</h3><p class="t">B1 data drift · B2 กรอกข้อมูลผิด · B3 ไม่มีคะแนน bureau · B4 selection bias · B5 training-serving skew · B9 proxy discrimination</p></div>
+<div class="card ai"><h3>ฝั่งมนุษย์ (OR)</h3><p class="t">B6 automation bias · B7 คำอธิบายชวนเข้าใจผิด · B8 งานล้น ไม่มี review policy</p></div>
+</div>
+</div>
+<div class="row" style="gap: 24px;">
+<div class="card" style="flex-direction: row; align-items: center; gap: 20px;"><p class="num">18</p><p class="label">Minimum Cut Sets ขนาด 2 ทั้งหมด</p></div>
+<div class="card" style="flex-direction: row; align-items: center; gap: 20px;"><p class="num">0</p><p class="label">single-point failure (human-in-the-loop)</p></div>
+<div class="card" style="flex-direction: row; align-items: center; gap: 20px;"><p class="num high">B6</p><p class="label">automation bias อยู่ใน 6 MCS: จุดอ่อนร่วมสำคัญ</p></div>
+</div>
+<div class="pg"></div>
+<aside>Fault Tree Analysis มี top event คือการตัดสินใจสินเชื่อผิดพลาดเพราะ AI แยกได้ 2 ทาง G1 คืออนุมัติคนที่จะผิดนัด และ G2 คือปฏิเสธลูกค้าดีหรือไม่เป็นธรรม ทั้งสองทางเป็น AND gate คือโมเดลต้องผิด และมนุษย์ต้องไม่จับได้ด้วย เมื่อหา Minimum Cut Set ได้ 18 ชุด ทุกชุดมีขนาด 2 แปลว่าไม่มี single-point failure ซึ่งเป็นผลจากการออกแบบให้มี human-in-the-loop ข้อสังเกตสำคัญคือ B6 automation bias หรือการเชื่อ AI มากเกินไป อยู่ในหลาย cut set จึงเป็นจุดที่ต้องป้องกันก่อน</aside>
+</section>

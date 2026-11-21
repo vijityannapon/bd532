@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Credit Risk Assistant</title>
+<style>
+  :root {
+    --bg: #f5f6f8; --card: #ffffff; --text: #1d2330; --muted: #667085; --border: #e3e6eb;
+    --accent: #2f5bea; --low: #12805c; --low-bg: #e6f4ee; --mid: #b25e09; --mid-bg: #fdf1e3;
+    --high: #c4302b; --high-bg: #fbe9e8; --bar-up: #d9534f; --bar-down: #2e8b57;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #12151b; --card: #1b2029; --text: #e7e9ee; --muted: #98a2b3; --border: #2c3340;
+      --accent: #7c9bff; --low: #4cc495; --low-bg: #16302a; --mid: #f0a35a; --mid-bg: #3a2a18;
+      --high: #ff7b72; --high-bg: #3b1f1f; --bar-up: #ff7b72; --bar-down: #4cc495; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Sarabun", "Noto Sans Thai", system-ui, sans-serif; background: var(--bg);
+         color: var(--text); font-size: 15px; }
+  header { padding: 16px 24px; border-bottom: 1px solid var(--border); background: var(--card);
+           display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+  header h1 { font-size: 19px; margin: 0; }
+  header .meta { color: var(--muted); font-size: 13px; }
+  main { display: grid; grid-template-columns: minmax(320px, 1fr) minmax(320px, 1fr); gap: 20px;
+         padding: 20px 24px; max-width: 1200px; margin: 0 auto; }
+  @media (max-width: 860px) { main { grid-template-columns: 1fr; padding: 16px; } }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px; }
+  h2 { font-size: 16px; margin: 0 0 12px; }
+  .presets { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 14px; }
+  label { display: flex; flex-direction: column; font-size: 13px; color: var(--muted); gap: 4px; }
+  input, select { font: inherit; padding: 7px 9px; border: 1px solid var(--border); border-radius: 6px;
+                  background: var(--bg); color: var(--text); }
+  .check { flex-direction: row; align-items: center; gap: 8px; color: var(--text); }
+  fieldset { border: 1px solid var(--border); border-radius: 8px; margin: 0 0 12px; padding: 10px 12px; }
+  legend { font-size: 13px; font-weight: 600; padding: 0 6px; }
+  button { font: inherit; border-radius: 6px; padding: 8px 14px; cursor: pointer; border: 1px solid var(--border);
+           background: var(--card); color: var(--text); }
+  button.primary { background: var(--accent); color: #fff; border-color: var(--accent); width: 100%; padding: 11px; font-weight: 600; }
+  button:disabled { opacity: .6; cursor: wait; }
+  .empty { color: var(--muted); text-align: center; padding: 50px 10px; }
+  .band { display: inline-block; padding: 4px 12px; border-radius: 999px; font-weight: 700; font-size: 14px; }
+  .LOW_RISK { color: var(--low); background: var(--low-bg); }
+  .REVIEW { color: var(--mid); background: var(--mid-bg); }
+  .HIGH_RISK { color: var(--high); background: var(--high-bg); }
+  .kpis { display: flex; gap: 24px; margin: 14px 0; flex-wrap: wrap; }
+  .kpi .v { font-size: 28px; font-weight: 700; }
+  .kpi .l { font-size: 12px; color: var(--muted); }
+  .scale { position: relative; height: 12px; border-radius: 6px; margin: 8px 0 22px;
+           background: linear-gradient(90deg, var(--low) 0 var(--r), var(--mid) var(--r) var(--h), var(--high) var(--h) 100%); opacity: .85; }
+  .marker { position: absolute; top: -5px; width: 4px; height: 22px; background: var(--text); border-radius: 2px; }
+  .scale small { position: absolute; top: 15px; font-size: 11px; color: var(--muted); transform: translateX(-50%); }
+  .reason { display: grid; grid-template-columns: 1fr 120px; gap: 10px; align-items: center; padding: 7px 0;
+            border-bottom: 1px solid var(--border); font-size: 14px; }
+  .reason .sub { color: var(--muted); font-size: 12px; }
+  .bar { height: 10px; border-radius: 5px; }
+  .warn { background: var(--mid-bg); color: var(--mid); padding: 8px 10px; border-radius: 6px; font-size: 13px; margin-top: 10px; }
+  .error { background: var(--high-bg); color: var(--high); padding: 10px; border-radius: 6px; font-size: 13px; white-space: pre-wrap; }
+  .note { font-size: 12px; color: var(--muted); margin-top: 10px; }
+  .fb-row { display: flex; gap: 8px; flex-wrap: wrap; margin: 8px 0; }
+  .fb-row button.sel { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+  .ok { color: var(--low); font-size: 13px; margin-top: 8px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>ระบบช่วยพิจารณาสินเชื่อด้วย AI <span style="font-weight:400;color:var(--muted)">· Credit Risk Assistant</span></h1>
+  <div class="meta" id="modelMeta">กำลังเชื่อมต่อโมเดล…</div>
+</header>
+
+<main>
+  <section class="card">
+    <h2>ข้อมูลผู้ขอสินเชื่อ</h2>
+    <div class="presets">
+      <button type="button" data-preset="low">ตัวอย่าง: เสี่ยงต่ำ</button>
+      <button type="button" data-preset="mid">ตัวอย่าง: ก้ำกึ่ง</button>
+      <button type="button" data-preset="high">ตัวอย่าง: เสี่ยงสูง</button>
+      <button type="button" data-preset="bad">ตัวอย่าง: ข้อมูลผิด</button>
+    </div>
+    <form id="form">
+      <fieldset><legend>สินเชื่อ</legend><div class="grid">
+        <label>ประเภทสัญญา<select name="contract_type"><option>Cash loans</option><option>Revolving loans</option></select></label>
+        <label>วงเงินกู้<input name="credit_amount" type="number" step="any" required></label>
+        <label>ค่างวด (annuity)<input name="annuity" type="number" step="any" required></label>
+        <label>ราคาสินทรัพย์<input name="goods_price" type="number" step="any" placeholder="ไม่ระบุได้"></label>
+      </div></fieldset>
+      <fieldset><legend>ผู้กู้</legend><div class="grid">
+        <label>อายุ (ปี)<input name="age_years" type="number" step="any" required></label>
+        <label>เพศ (ใช้ตรวจ fairness เท่านั้น)<select name="gender"><option value="">ไม่ระบุ</option><option>F</option><option>M</option></select></label>
+        <label>รายได้ต่อปี<input name="income" type="number" step="any" required></label>
+        <label>ประเภทรายได้<select name="income_type">
+          <option>Working</option><option>Commercial associate</option><option>Pensioner</option><option>State servant</option>
+          <option>Unemployed</option><option>Student</option><option>Businessman</option><option>Maternity leave</option></select></label>
+        <label>อาชีพ<select name="occupation"><option value="">ไม่ระบุ</option>
+          <option>Laborers</option><option>Sales staff</option><option>Core staff</option><option>Managers</option><option>Drivers</option>
+          <option>High skill tech staff</option><option>Accountants</option><option>Medicine staff</option><option>Security staff</option>
+          <option>Cooking staff</option><option>Cleaning staff</option><option>Low-skill Laborers</option><option>IT staff</option></select></label>
+        <label>อายุงาน (ปี)<input name="years_employed" type="number" step="any" placeholder="ว่าง = ไม่มีงาน/เกษียณ"></label>
+        <label>การศึกษา<select name="education"><option>Secondary / secondary special</option><option>Higher education</option>
+          <option>Incomplete higher</option><option>Lower secondary</option><option>Academic degree</option></select></label>
+        <label>สถานภาพ<select name="family_status"><option>Married</option><option>Single / not married</option>
+          <option>Civil marriage</option><option>Separated</option><option>Widow</option></select></label>
+        <label>ที่อยู่อาศัย<select name="housing_type"><option>House / apartment</option><option>With parents</option>
+          <option>Municipal apartment</option><option>Rented apartment</option><option>Office apartment</option><option>Co-op apartment</option></select></label>
+        <label>ระดับพื้นที่ (1 ดี – 3 เสี่ยง)<select name="region_rating"><option>1</option><option selected>2</option><option>3</option></select></label>
+        <label>จำนวนบุตร<input name="children" type="number" min="0" value="0"></label>
+        <label>สมาชิกครอบครัว<input name="family_members" type="number" min="1" value="2"></label>
+        <label class="check"><input name="own_car" type="checkbox"> มีรถยนต์</label>
+        <label class="check"><input name="own_realty" type="checkbox"> มีอสังหาฯ</label>
+      </div></fieldset>
+      <fieldset><legend>คะแนนเครดิตภายนอก (0–1, ว่างได้)</legend><div class="grid">
+        <label>Score 1<input name="ext_source_1" type="number" step="0.01" min="0" max="1"></label>
+        <label>Score 2<input name="ext_source_2" type="number" step="0.01" min="0" max="1"></label>
+        <label>Score 3<input name="ext_source_3" type="number" step="0.01" min="0" max="1"></label>
+      </div></fieldset>
+      <button class="primary" id="submit" type="submit">ประเมินความเสี่ยง</button>
+    </form>
+  </section>
+
+  <section class="card" id="result">
+    <h2>ผลการประเมิน</h2>
+    <div class="empty">กรอกข้อมูลหรือเลือกตัวอย่าง แล้วกด “ประเมินความเสี่ยง”</div>
+  </section>
+</main>
+
+<script>
+const PRESETS = {
+  low:  {contract_type:"Cash loans", gender:"F", own_car:true, own_realty:true, children:0, income:420000, credit_amount:600000,
+         annuity:22000, goods_price:550000, income_type:"State servant", education:"Higher education", family_status:"Married",
+         housing_type:"House / apartment", age_years:46, years_employed:15, occupation:"Core staff", family_members:2,
+         region_rating:1, ext_source_1:0.75, ext_source_2:0.78, ext_source_3:0.80},
+  mid:  {contract_type:"Cash loans", gender:"M", own_car:false, own_realty:true, children:1, income:180000, credit_amount:650000,
+         annuity:38000, goods_price:600000, income_type:"Working", education:"Secondary / secondary special", family_status:"Married",
+         housing_type:"House / apartment", age_years:33, years_employed:2.5, occupation:"Drivers", family_members:3,
+         region_rating:2, ext_source_1:null, ext_source_2:0.42, ext_source_3:0.38},
+  high: {contract_type:"Cash loans", gender:"M", own_car:false, own_realty:false, children:2, income:110000, credit_amount:900000,
+         annuity:52000, goods_price:850000, income_type:"Working", education:"Lower secondary", family_status:"Single / not married",
+         housing_type:"Rented apartment", age_years:24, years_employed:0.5, occupation:"Low-skill Laborers", family_members:3,
+         region_rating:3, ext_source_1:null, ext_source_2:0.12, ext_source_3:0.10},
+  bad:  {contract_type:"Cash loans", gender:"F", own_car:false, own_realty:false, children:0, income:200000, credit_amount:100000,
+         annuity:150000, goods_price:null, income_type:"Working", education:"Higher education", family_status:"Married",
+         housing_type:"House / apartment", age_years:30, years_employed:25, occupation:"Managers", family_members:2,
+         region_rating:2, ext_source_1:null, ext_source_2:0.5, ext_source_3:null},
+};
+const NUM = ["children","income","credit_amount","annuity","goods_price","age_years","years_employed","family_members",
+             "region_rating","ext_source_1","ext_source_2","ext_source_3"];
+const form = document.getElementById("form"), out = document.getElementById("result");
+const BAND_TH = {LOW_RISK:"ความเสี่ยงต่ำ", REVIEW:"ควรตรวจสอบเพิ่ม", HIGH_RISK:"ความเสี่ยงสูง"};
+let last = null;
+
+function fill(p) {
+  for (const [k, v] of Object.entries(p)) {
+    const el = form.elements[k]; if (!el) continue;
+    if (el.type === "checkbox") el.checked = !!v; else el.value = v ?? "";
+  }
+}
+function payload() {
+  const a = {};
+  for (const el of form.elements) {
+    if (!el.name) continue;
+    if (el.type === "checkbox") a[el.name] = el.checked;
+    else if (NUM.includes(el.name)) a[el.name] = el.value === "" ? null : Number(el.value);
+    else a[el.name] = el.value === "" ? null : el.value;
+  }
+  return {application_id: "UI-" + Date.now(), applicant: a, explain: true, top_k: 6};
+}
+const pct = x => (x * 100).toFixed(1) + "%";
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function render(r) {
+  const p = r.prediction, t = p.thresholds;
+  const max = Math.max(0.5, t.high_risk * 2, p.probability_of_default * 1.1);
+  const pos = v => Math.min(100, v / max * 100);
+  const maxAbs = Math.max(...r.explanation.reasons.map(x => Math.abs(x.shap_value)), 0.01);
+  out.innerHTML = `
+    <h2>ผลการประเมิน</h2>
+    <span class="band ${p.decision_band}">${BAND_TH[p.decision_band]} · ${p.decision_band}</span>
+    <div class="kpis">
+      <div class="kpi"><div class="v">${pct(p.probability_of_default)}</div><div class="l">โอกาสผิดนัดชำระ (PD)</div></div>
+      <div class="kpi"><div class="v">${p.risk_score}</div><div class="l">Risk score (สูง = ปลอดภัย)</div></div>
+      <div class="kpi"><div class="v">${pct(r.explanation.base_probability)}</div><div class="l">ค่าเฉลี่ยของพอร์ต</div></div>
+    </div>
+    <div class="scale" style="--r:${pos(t.review)}%;--h:${pos(t.high_risk)}%">
+      <div class="marker" style="left:calc(${pos(p.probability_of_default)}% - 2px)"></div>
+      <small style="left:${pos(t.review)}%">${pct(t.review)}</small><small style="left:${pos(t.high_risk)}%">${pct(t.high_risk)}</small>
+    </div>
+    <div>${esc(p.recommendation)}</div>
+    <h2 style="margin-top:18px">เหตุผลหลัก (SHAP)</h2>
+    ${r.explanation.reasons.map(x => `
+      <div class="reason"><div>${esc(x.label_th)} = <b>${esc(x.value)}</b>
+        <div class="sub">${x.direction === "increases_risk" ? "▲ เพิ่มความเสี่ยง" : "▼ ลดความเสี่ยง"} · ${esc(x.label)}</div></div>
+        <div class="bar" style="width:${Math.abs(x.shap_value) / maxAbs * 100}%;background:${x.direction === "increases_risk" ? "var(--bar-up)" : "var(--bar-down)"}"></div>
+      </div>`).join("")}
+    ${r.warnings.map(w => `<div class="warn">⚠ ${esc(w)}</div>`).join("")}
+    <h2 style="margin-top:18px">ความเห็นเจ้าหน้าที่ (Feedback)</h2>
+    <div class="fb-row" id="agree"><button data-v="true">เห็นด้วยกับ AI</button><button data-v="false">ไม่เห็นด้วย</button></div>
+    <div class="grid">
+      <label>การตัดสินใจ<select id="decision"><option>APPROVE</option><option>REFER</option><option>DECLINE</option></select></label>
+      <label>เหตุผล<select id="reason"><option value="">—</option><option>INCOME_VERIFIED</option><option>COLLATERAL_STRONG</option>
+        <option>DOCS_INCONSISTENT</option><option>KNOWN_CUSTOMER</option><option>MODEL_MISSED_RISK</option><option>OTHER</option></select></label>
+    </div>
+    <label style="margin-top:8px">หมายเหตุ<input id="comment" maxlength="500"></label>
+    <button style="margin-top:10px" id="sendFb">ส่ง feedback</button><div id="fbMsg"></div>
+    <div class="note">AI ให้คำแนะนำเท่านั้น เจ้าหน้าที่เป็นผู้ตัดสินใจ · request_id ${esc(r.request_id)} · ${r.latency_ms} ms · model ${esc(r.model.name)} v${esc(r.model.version)}</div>`;
+  let agree = null;
+  out.querySelectorAll("#agree button").forEach(b => b.onclick = () => {
+    agree = b.dataset.v === "true";
+    out.querySelectorAll("#agree button").forEach(x => x.classList.toggle("sel", x === b));
+  });
+  out.querySelector("#sendFb").onclick = async () => {
+    const msg = out.querySelector("#fbMsg");
+    if (agree === null) { msg.innerHTML = `<div class="error">กรุณาเลือกว่าเห็นด้วยหรือไม่</div>`; return; }
+    const body = {request_id: r.request_id, application_id: r.application_id, agrees_with_model: agree,
+      officer_decision: out.querySelector("#decision").value, reason_code: out.querySelector("#reason").value || null,
+      comment: out.querySelector("#comment").value || null};
+    const res = await fetch("/v1/feedback", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body)});
+    const j = await res.json();
+    msg.innerHTML = res.ok ? `<div class="ok">✓ บันทึกแล้ว (${esc(j.feedback_id.slice(0, 8))})</div>` : `<div class="error">${esc(JSON.stringify(j.error, null, 2))}</div>`;
+  };
+}
+
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+  const btn = document.getElementById("submit"); btn.disabled = true; btn.textContent = "กำลังประเมิน…";
+  try {
+    const res = await fetch("/v1/predict", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(payload())});
+    const j = await res.json();
+    if (!res.ok) {
+      out.innerHTML = `<h2>ผลการประเมิน</h2><div class="error">HTTP ${res.status} · ${esc(j.error.code)}\n${esc(j.error.message)}\n\n${esc(JSON.stringify(j.error.details, null, 2))}</div>`;
+    } else { last = j; render(j); }
+  } catch (err) {
+    out.innerHTML = `<h2>ผลการประเมิน</h2><div class="error">เชื่อมต่อ API ไม่ได้: ${esc(err.message)}</div>`;
+  } finally { btn.disabled = false; btn.textContent = "ประเมินความเสี่ยง"; }
+});
+document.querySelectorAll("[data-preset]").forEach(b => b.onclick = () => fill(PRESETS[b.dataset.preset]));
+fill(PRESETS.mid);
+fetch("/v1/model").then(r => r.json()).then(m => {
+  document.getElementById("modelMeta").textContent =
+    `model ${m.name} v${m.version} · test ROC-AUC ${m.metrics.test.roc_auc.toFixed(3)} · data: ${m.data_source}`;
+}).catch(() => document.getElementById("modelMeta").textContent = "โมเดลยังไม่พร้อม");
+</script>
+</body>
+</html>

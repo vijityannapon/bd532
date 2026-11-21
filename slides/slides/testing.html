@@ -1,0 +1,20 @@
+<section id="testing" class="alt">
+<div class="head">
+<p class="eyebrow">4.2 · INTERFACE TESTING</p>
+<h2>17 / 17 scenarios ผ่าน บน server จริง</h2>
+</div>
+<div class="row grow">
+<div class="col" style="flex: 1.1; gap: 16px;">
+<div class="card" style="padding: 16px 24px; gap: 4px;"><p class="pill">Prediction · S1–S5</p><p class="t" style="font-size: 24px;">เสี่ยงต่ำ PD 1.3% → LOW_RISK ✔ · เสี่ยงสูง PD 36.9% → HIGH_RISK ✔ · batch 3 ✔</p></div>
+<div class="card ai" style="padding: 16px 24px; gap: 4px;"><p class="pill">Fairness · S4</p><p class="t" style="font-size: 24px;">คนเดิม เปลี่ยนเพศ F → M ได้ PD เท่าเดิม ✔ (ยืนยัน SPEC-4)</p></div>
+<div class="card" style="padding: 16px 24px; gap: 4px;"><p class="pill high">Errors · E1–E8</p><p class="t" style="font-size: 24px;">ขาดฟิลด์ 422 · enum ผิด 422 · นอกช่วง 422 · JSON เสีย 400 · ขัดแย้ง 400 · batch 101 → 413 · 404 · 405 ✔</p></div>
+<div class="card" style="padding: 16px 24px; gap: 4px;"><p class="pill low">Feedback · F1–F2</p><p class="t" style="font-size: 24px;">feedback ถูกต้อง 201 · ไม่ถูกต้อง 422 ✔</p></div>
+</div>
+<div class="col">
+<img class="shot" src="/_blob/d0d699e77cb8b0518c099f15a59fd9a8" alt="Web UI แสดง HTTP 400 BUSINESS_RULE_VIOLATION พร้อมรายการฟิลด์ที่ผิด annuity และ years_employed" style="width: 720px; height: 561px;">
+<p class="small muted">3 ช่องทาง: Postman collection · scripts/run_interface_tests.py · Web UI</p>
+</div>
+</div>
+<div class="pg"></div>
+<aside>หัวข้อ 4.2 ผมทดสอบ interface 3 ช่องทาง คือ Postman collection, script ที่ยิง scenario เดียวกันไปยัง server จริง และ Web UI รวม 17 scenario ผ่านทั้งหมด กลุ่มแรกคือการทำนาย เคสเสี่ยงต่ำได้ LOW_RISK เคสเสี่ยงสูงได้ HIGH_RISK กลุ่มที่สองคือการทดสอบ fairness โดยส่งผู้กู้คนเดิมแต่เปลี่ยนเพศ ได้ผลเท่าเดิมทุกตำแหน่งทศนิยม กลุ่มที่สามคือ error handling 8 กรณี และกลุ่มสุดท้ายคือ feedback ภาพขวาคือหน้าจอจริงเมื่อส่งข้อมูลที่ขัดแย้งกัน ระบบตอบ 400 และบอกชัดว่าฟิลด์ไหนผิด</aside>
+</section>

@@ -1,0 +1,17 @@
+<section id="fairness">
+<div class="head">
+<p class="eyebrow">3.2 · MODEL FAIRNESS ANALYSIS</p>
+<h2>Reweighing ลดช่องว่างตามเพศ โดยไม่เสียความแม่นยำ</h2>
+</div>
+<div class="row grow">
+<img class="shot" src="/_blob/73f4db6999c6cbfab9d51bb2b330a805" alt="กราฟ fairness ต่อกลุ่ม v5 เทียบกับ v6: approval rate, FPR และ TPR ตามเพศและช่วงอายุ" style="width: 960px; height: 517px;">
+<div class="col" style="gap: 16px;">
+<div class="card" style="padding: 16px 24px; gap: 4px;"><p class="label">Gender FPR gap (validation)</p><p class="num" style="font-size: 52px;">0.043 → 0.016</p><p class="label">ลด 63% · AUC ไม่ลด</p></div>
+<div class="card" style="padding: 16px 24px; gap: 4px;"><p class="label">Disparate Impact (test)</p><p class="num low" style="font-size: 52px;">0.96</p><p class="label">เพศ · ผ่านเกณฑ์ 4/5 (≥ 0.8)</p></div>
+<div class="card mid" style="padding: 16px 24px; gap: 4px;"><p class="label">Disparate Impact อายุ</p><p class="num mid" style="font-size: 52px;">0.83</p><p class="label">ผ่านแบบเฉียด แต่ PD ตรงกับ actual ทุกกลุ่ม</p></div>
+</div>
+</div>
+<p class="small muted">Bias: historical · proxy (own_car) · selection · Mitigation: ไม่ใช้ gender + reweighing + audit ทุก version</p>
+<div class="pg"></div>
+<aside>หัวข้อ 3.2 fairness แหล่ง bias มีหลายทาง ทั้ง historical bias ในข้อมูล proxy อย่างการมีรถซึ่งสัมพันธ์กับเพศ และ selection bias ผมคำนวณ metric หลายตัว เช่น disparate impact, equal opportunity และ FPR gap ทั้งตามเพศและอายุ วิธีลด bias คือไม่ใช้เพศเป็น feature และใช้ reweighing ใน v6 ผลคือช่องว่าง FPR ระหว่างเพศลดจาก 0.043 เหลือ 0.016 หรือ 63% โดย AUC ไม่ลด ส่วนอายุ DI 0.83 ผ่านเกณฑ์แบบเฉียด แต่เมื่อดู calibration แยกกลุ่ม ค่าที่ทำนายตรงกับอัตราจริงทุกกลุ่ม ช่องว่างนี้จึงสะท้อนความเสี่ยงจริงมากกว่าความลำเอียงของโมเดล แต่ยังเป็นประเด็นเชิงนโยบายที่ต้องตัดสินใจ</aside>
+</section>

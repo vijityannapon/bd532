@@ -1,0 +1,42 @@
+<section id="pipeline" class="alt">
+<div class="head">
+<p class="eyebrow">3.1 · TRAINING IMPLEMENTATION</p>
+<h2>Preprocessing อยู่ใน pipeline เดียวกับโมเดล</h2>
+</div>
+<div class="flow">
+<div class="card"><h3>Raw CSV</h3><p class="t">DAYS_* → ปี, Y/N → 0/1, sentinel → NaN</p></div>
+<x-connector class="arr"></x-connector>
+<div class="card"><h3>8 domain ratios</h3><p class="t">DSTI, loan/income, payment rate, ext score mean…</p></div>
+<x-connector class="arr"></x-connector>
+<div class="card ai"><h3>ColumnTransformer</h3><p class="t">median + missing flag · “Unknown” + one-hot</p></div>
+<x-connector class="arr"></x-connector>
+<div class="card ai"><h3>Classifier</h3><p class="t">LogReg · RF · HistGradientBoosting</p></div>
+</div>
+<div class="row grow">
+<div class="card">
+<h3>Validation methodology</h3>
+<ul class="t" style="margin: 0; padding-left: 28px;">
+<li>Stratified split 70 / 15 / 15</li>
+<li>เทียบทุก version บน validation</li>
+<li>threshold จาก expected cost (FN 5 : FP 1)</li>
+<li>5-fold CV ดูความเสถียร · test ใช้ครั้งเดียว</li>
+</ul>
+</div>
+<div class="card">
+<h3>Metrics</h3>
+<ul class="t" style="margin: 0; padding-left: 28px;">
+<li>ROC-AUC · PR-AUC (คลาสส่วนน้อย)</li>
+<li>KS (มาตรฐาน credit scoring)</li>
+<li>Brier (calibration) · expected cost</li>
+<li>fairness · latency · model size</li>
+</ul>
+</div>
+<div class="card ai">
+<h3>Unit tests (extra)</h3>
+<p class="num">40</p>
+<p class="t">features, ratio math, unseen category, SHAP additivity, reweighing, API contract</p>
+</div>
+</div>
+<div class="pg"></div>
+<aside>การ train แบ่งเป็นขั้นตอนนี้ แปลงข้อมูลดิบให้เป็นหน่วยที่คนเข้าใจ สร้าง domain ratio 8 ตัว เช่นสัดส่วนค่างวดต่อรายได้ แล้วเข้า ColumnTransformer และ classifier ทั้งหมดอยู่ใน sklearn pipeline เดียว จึงไม่เกิด training-serving skew ระหว่างตอน train กับตอนให้บริการผ่าน API การ validate ใช้ split 70 15 15 เลือก threshold จากต้นทุน และใช้ 5-fold CV ดูความเสถียร test set ใช้เพียงครั้งเดียวตอนท้าย ส่วนคะแนนพิเศษ ผมเขียน unit test 40 ตัว</aside>
+</section>

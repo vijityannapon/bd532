@@ -1,0 +1,14 @@
+2026/11/21 20:52:15 INFO mlflow.store.db.utils: Creating initial MLflow database tables...
+2026/11/21 20:52:15 INFO mlflow.store.db.utils: Updating database tables
+2026/11/21 20:52:16 INFO mlflow.tracking.fluent: Experiment with name 'bd532-credit-risk' does not exist. Creating a new experiment.
+Data: 307,511 rows (Home Credit), default rate 8.07% | train 215,257 / val 46,127 / test 46,127
+  v1_logreg_basic            AUC=0.7426 PR-AUC=0.2273 KS=0.354 cost=0.3483 lat=1.7ms size=0.01MB
+  v2_logreg_engineered       AUC=0.7437 PR-AUC=0.2300 KS=0.357 cost=0.3458 lat=1.9ms size=0.01MB
+  v3_random_forest           AUC=0.7490 PR-AUC=0.2348 KS=0.369 cost=0.3439 lat=26.4ms size=37.34MB
+  v4_hgb_default             AUC=0.7579 PR-AUC=0.2466 KS=0.381 cost=0.3362 lat=8.6ms size=0.38MB
+  v5_hgb_tuned               AUC=0.7607 PR-AUC=0.2484 KS=0.383 cost=0.3337 lat=13.8ms size=0.62MB
+  v6_hgb_tuned_reweighed     AUC=0.7612 PR-AUC=0.2458 KS=0.389 cost=0.3353 lat=31.5ms size=1.47MB
+Selected: v6_hgb_tuned_reweighed
+  5-fold CV ROC-AUC: 0.7561 ± 0.0052
+Model saved to /Users/ake/Code/BD532/bd532-credit-risk/models/credit_risk_model.joblib
+Report: /Users/ake/Code/BD532/bd532-credit-risk/reports/results.md

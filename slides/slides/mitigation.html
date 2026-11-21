@@ -1,0 +1,17 @@
+<section id="mitigation" class="alt">
+<div class="head">
+<p class="eyebrow">2.2.5 · RISK MITIGATION</p>
+<h2>มาตรการที่ทำแล้วใน PoC</h2>
+</div>
+<table>
+<tr class="th"><th style="width: 26%;">ความเสี่ยง</th><th style="width: 74%;">มาตรการ (ทำแล้วในโค้ด)</th></tr>
+<tr><td>B6 Automation bias</td><td>UI เป็น “คำแนะนำ” ไม่มีปุ่มอนุมัติอัตโนมัติ เจ้าหน้าที่ต้องเลือก decision และเหตุผลเอง</td></tr>
+<tr><td>B2 กรอกข้อมูลผิด</td><td>Pydantic schema → 422, business rules → 400, เตือนเมื่อค่าอยู่นอกช่วงข้อมูล train</td></tr>
+<tr><td>B1 Data drift</td><td>เก็บ training profile ไว้กับโมเดล ใส่ warnings ใน response และ log ทุก prediction เพื่อคำนวณ PSI</td></tr>
+<tr><td>B5 Skew / version</td><td>preprocessing อยู่ใน sklearn Pipeline เดียวกับโมเดล, version + MLflow run id ทุก response</td></tr>
+<tr><td>B9 Proxy bias</td><td>ไม่ใช้ gender เป็น feature, fairness audit ทุก version, reweighing (v6)</td></tr>
+<tr><td>B7 Explanation</td><td>รวม SHAP one-hot กลับเป็นฟิลด์เดิม เป็นภาษาไทย และทดสอบว่ารวมแล้วเท่ากับ prediction</td></tr>
+</table>
+<div class="pg"></div>
+<aside>หัวข้อ 2.2.5 คือมาตรการลดความเสี่ยงที่ทำไว้ในโค้ดแล้วทั้งหมด สำหรับ automation bias หน้าจอจะไม่มีปุ่มอนุมัติอัตโนมัติ เจ้าหน้าที่ต้องเลือกเอง สำหรับข้อมูลผิด มีการตรวจ 2 ชั้น คือ schema และ business rule สำหรับ drift มีการเก็บสถิติข้อมูล train ไว้กับโมเดล และเตือนเมื่อค่านอกช่วง สำหรับ training-serving skew preprocessing อยู่ใน pipeline เดียวกับโมเดล สำหรับ bias ไม่ใช้เพศเป็น feature และมี reweighing ส่วนคำอธิบาย มี unit test ยืนยันว่าค่า SHAP รวมกันแล้วตรงกับผลทำนายจริง</aside>
+</section>

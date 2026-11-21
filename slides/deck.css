@@ -1,0 +1,96 @@
+:root {
+  --ink: #14213D;
+  --paper: #F7F6F2;
+  --paper2: #E9EDF5;
+  --card: #FDFDFB;
+  --line: #CFD6E4;
+  --text: #1F2937;
+  --muted: #4A5568;
+  --accent: #2F5BEA;
+  --accent-soft: #DCE4FC;
+  --low: #17784F;
+  --low-bg: #DDF1E7;
+  --mid: #9A5A06;
+  --mid-bg: #FBEBD3;
+  --high: #B42D28;
+  --high-bg: #F9E1DF;
+}
+
+section {
+  counter-increment: page;
+  padding: 128px 128px 160px;
+  background: var(--paper);
+  color: var(--text);
+  font-family: 'Sarabun', Tahoma, sans-serif;
+  font-size: 30px;
+  line-height: 1.4;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+section.alt { background: var(--paper2); }
+section.dark { background: var(--ink); color: #E3E8F2; }
+section.accent { background: var(--accent); color: #F4F6FD; }
+
+h1, h2, h3 { font-family: 'Kanit', Tahoma, sans-serif; margin: 0; color: var(--ink); }
+h1 { font-size: 96px; font-weight: 600; line-height: 1.15; }
+h2 { font-size: 60px; font-weight: 600; line-height: 1.2; }
+h3 { font-size: 34px; font-weight: 600; line-height: 1.25; }
+.dark h1, .dark h2, .dark h3, .accent h1, .accent h2, .accent h3 { color: #F7F6F2; }
+p { margin: 0; font-size: 30px; }
+
+.head { display: flex; flex-direction: column; gap: 8px; }
+.eyebrow { font-family: 'Kanit', Tahoma, sans-serif; font-size: 24px; font-weight: 600; color: var(--accent); letter-spacing: 2px; }
+.dark .eyebrow { color: #9DB3FF; }
+.accent .eyebrow { color: #DCE4FC; }
+.lead { font-size: 34px; color: var(--muted); line-height: 1.4; }
+.dark .lead { color: #BCC6DA; }
+.muted { color: var(--muted); }
+.small { font-size: 24px; }
+
+.row { display: flex; gap: 32px; }
+.col { display: flex; flex-direction: column; gap: 20px; flex: 1; }
+.grow { flex: 1; }
+.center { align-items: center; }
+
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 28px 32px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.alt .card { background: var(--paper); }
+.card h3 { font-size: 32px; }
+.card .t { font-size: 26px; color: var(--muted); line-height: 1.35; }
+.card.ai { background: var(--accent-soft); border-color: var(--accent); }
+.card.low { background: var(--low-bg); border-color: var(--low); }
+.card.mid { background: var(--mid-bg); border-color: var(--mid); }
+.card.high { background: var(--high-bg); border-color: var(--high); }
+
+.num { font-family: 'Kanit', Tahoma, sans-serif; font-size: 84px; font-weight: 600; color: var(--accent); line-height: 1.05; }
+.num.low { color: var(--low); }
+.num.mid { color: var(--mid); }
+.num.high { color: var(--high); }
+.label { font-size: 24px; color: var(--muted); line-height: 1.3; }
+
+.pill { font-family: 'Kanit', Tahoma, sans-serif; font-size: 24px; font-weight: 600; padding: 4px 16px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); align-self: flex-start; }
+.pill.low { background: var(--low-bg); color: var(--low); }
+.pill.mid { background: var(--mid-bg); color: var(--mid); }
+.pill.high { background: var(--high-bg); color: var(--high); }
+
+table { font-size: 26px; color: var(--text); width: 100%; }
+tr.th { background: var(--paper2); }
+.alt tr.th { background: var(--card); }
+tr.hl { background: var(--accent-soft); }
+
+.shot { border: 1px solid var(--line); border-radius: 12px; object-fit: contain; background: #FFFFFF; }
+.flow { display: flex; align-items: stretch; gap: 0; }
+.flow .card { padding: 22px 24px; }
+.flow .card h3 { font-size: 28px; }
+.flow .card .t { font-size: 24px; }
+.arr { width: 56px; color: var(--muted); border-width: 3px; align-self: center; }
+
+.pg { position: absolute; right: 128px; bottom: 64px; width: 400px; text-align: right; font-size: 24px; color: var(--muted); }
+.pg::after { content: counter(page); }
+.foot { position: absolute; left: 128px; bottom: 64px; width: 1000px; font-size: 24px; color: var(--muted); }
+.dark .pg, .dark .foot, .accent .pg, .accent .foot { color: #BCC6DA; }
+
+.statement { font-family: 'Kanit', Tahoma, sans-serif; font-size: 160px; font-weight: 600; line-height: 1; color: #F7F6F2; }
+
+.rise { animation: rise 600ms ease-out both; animation-delay: calc(var(--i, 0) * 120ms); }
+@keyframes rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }

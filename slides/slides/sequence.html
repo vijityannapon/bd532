@@ -1,0 +1,27 @@
+<section id="sequence">
+<div class="head">
+<p class="eyebrow">4.1 · SEQUENCE &amp; ERROR HANDLING</p>
+<h2>ลำดับการทำงานและ error codes</h2>
+</div>
+<div class="flow">
+<div class="card"><h3>① UI</h3><p class="t">เจ้าหน้าที่กดประเมิน</p></div>
+<x-connector class="arr"></x-connector>
+<div class="card"><h3>② Validate</h3><p class="t">schema + business rules</p></div>
+<x-connector class="arr"></x-connector>
+<div class="card ai"><h3>③ Predict</h3><p class="t">pipeline → PD, band</p></div>
+<x-connector class="arr"></x-connector>
+<div class="card ai"><h3>④ Explain</h3><p class="t">SHAP top-k reasons</p></div>
+<x-connector class="arr"></x-connector>
+<div class="card"><h3>⑤ Log → UI</h3><p class="t">200 + feedback → 201</p></div>
+</div>
+<table>
+<tr class="th"><th style="width: 10%;">HTTP</th><th style="width: 32%;">error.code</th><th style="width: 58%;">เมื่อไร</th></tr>
+<tr><td>422</td><td>VALIDATION_ERROR</td><td>ขาดฟิลด์, enum ผิด, ค่านอกช่วง (บอก field + issue)</td></tr>
+<tr><td>400</td><td>BUSINESS_RULE_VIOLATION</td><td>ข้อมูลขัดแย้ง เช่น ค่างวดมากกว่าวงเงิน</td></tr>
+<tr><td>400</td><td>MALFORMED_JSON</td><td>body ไม่ใช่ JSON ที่ถูกต้อง</td></tr>
+<tr><td>413</td><td>BATCH_TOO_LARGE</td><td>batch เกิน 100 คำขอ</td></tr>
+<tr><td>503</td><td>MODEL_UNAVAILABLE</td><td>โหลดโมเดลไม่ได้ → ใช้กระบวนการ manual</td></tr>
+</table>
+<div class="pg"></div>
+<aside>ลำดับการทำงานเป็นแบบนี้ UI ส่ง request มา API ตรวจ schema และ business rule ถ้าผิดจะตอบ error ทันที ถ้าผ่านจะส่งเข้า pipeline เพื่อทำนาย ส่งต่อ explainer เพื่อสร้างเหตุผล บันทึก log แล้วตอบกลับ UI เมื่อเจ้าหน้าที่ส่ง feedback จะได้ 201 ทุก error ใช้รูปแบบเดียวกัน คือมี code, message และ details แยก 422 สำหรับข้อมูลผิดรูปแบบ กับ 400 สำหรับข้อมูลที่ขัดแย้งกัน และ 503 เมื่อโมเดลไม่พร้อม ซึ่งหน้า UI จะแจ้งให้ใช้กระบวนการ manual sequence diagram แบบเต็มอยู่ในรายงานหัวข้อ 4.1</aside>
+</section>

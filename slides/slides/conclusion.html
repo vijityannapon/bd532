@@ -1,0 +1,39 @@
+<section id="conclusion" class="alt">
+<div class="head">
+<p class="eyebrow">CONCLUSION · PATH TO INDEPENDENT STUDY</p>
+<h2>ผ่านเป้าระดับโมเดลและระบบครบ ขั้นต่อไปคือข้อมูลจริงขององค์กร</h2>
+</div>
+<div class="row grow">
+<div class="card">
+<h3>ผลเทียบกับเป้า</h3>
+<ul class="t" style="margin: 0; padding-left: 28px;">
+<li>ROC-AUC 0.764 ≥ 0.75 ✔</li>
+<li>KS 0.399 ≥ 0.35 ✔</li>
+<li>DI เพศ 0.96 · อายุ 0.83 ≥ 0.8 ✔</li>
+<li>~40 ms &lt; 300 ms ✔</li>
+<li>ลด FPD / เวลาพิจารณา: ต้อง pilot</li>
+</ul>
+</div>
+<div class="card">
+<h3>ข้อจำกัด</h3>
+<ul class="t" style="margin: 0; padding-left: 28px;">
+<li>selection bias: ไม่มี label ของคนที่ถูกปฏิเสธ</li>
+<li>ใช้ตารางเดียว (ยังไม่ใช้ bureau, ประวัติการผ่อน)</li>
+<li>cost 5:1 เป็นสมมติฐาน</li>
+<li>SHAP ไม่ใช่ causal</li>
+</ul>
+</div>
+<div class="card ai">
+<h3>ต่อยอดเป็น IS</h3>
+<ul class="t" style="margin: 0; padding-left: 28px;">
+<li>เพิ่ม feature จาก bureau / installments</li>
+<li>เทียบวิธีลด bias หลายแบบ</li>
+<li>reject inference</li>
+<li>drift monitoring + retraining policy</li>
+<li>user study: คำอธิบายช่วยหรือเพิ่ม automation bias</li>
+</ul>
+</div>
+</div>
+<div class="pg"></div>
+<aside>สรุป เป้าหมายระดับโมเดลและระบบผ่านทั้งหมด ทั้ง AUC, KS, fairness และ latency ส่วนเป้าระดับองค์กร เช่น ลด First Payment Default วัดไม่ได้ในงานต้นแบบ ต้องทดลองใช้จริง ข้อจำกัดที่สำคัญคือ selection bias การใช้ข้อมูลเพียงตารางเดียว และ cost ratio ที่เป็นสมมติฐาน สำหรับการต่อยอดเป็น Independent Study ผมวางแผนไว้ 5 ทาง ทางที่สนใจที่สุดคือ user study เพื่อตอบว่าคำอธิบาย SHAP ช่วยให้เจ้าหน้าที่ตัดสินใจดีขึ้นจริง หรือกลับทำให้เชื่อ AI มากเกินไป</aside>
+</section>

@@ -1,0 +1,18 @@
+<section id="canvas">
+<div class="head">
+<p class="eyebrow">2.2.3 · ML CANVAS</p>
+<h2>ML Canvas: Default risk prediction + explanation</h2>
+</div>
+<div class="row grow" style="gap: 20px;">
+<div class="card"><h3>Problem &amp; objective</h3><p class="t">ให้คะแนนความเสี่ยงพร้อมเหตุผลทันที เพื่อลดหนี้เสียและเวลาพิจารณา</p></div>
+<div class="card"><h3>Input data</h3><p class="t">21 ฟิลด์จาก Home Credit; missing สูงใน EXT_SOURCE_1 (56%), sentinel 365243</p></div>
+<div class="card"><h3>Processing &amp; model</h3><p class="t">Pipeline: impute + one-hot + 8 domain ratios → เทียบ 6 versions (LogReg, RF, HistGB)</p></div>
+</div>
+<div class="row grow" style="gap: 20px;">
+<div class="card"><h3>Expected output</h3><p class="t">JSON: PD, risk score 0–1000, band, reasons[], warnings[]</p></div>
+<div class="card"><h3>Success criteria</h3><p class="t">ROC-AUC ≥ 0.75, KS ≥ 0.35, Brier ≤ baseline, DI ≥ 0.8, p95 &lt; 300 ms</p></div>
+<div class="card"><h3>Decisions &amp; monitoring</h3><p class="t">threshold จาก cost 5:1 → 3 band; ติดตาม PSI, agreement rate, AUC บน label ใหม่</p></div>
+</div>
+<div class="pg"></div>
+<aside>ML Canvas สรุปงาน AI หลักไว้ในหน้าเดียว ปัญหาคือการให้คะแนนความเสี่ยงพร้อมเหตุผล input เป็นข้อมูลคำขอ 21 ฟิลด์ ซึ่งมีปัญหาค่าขาดหายและค่าแปลก ๆ เช่น 365243 วันที่ใช้แทนคนไม่มีงาน การประมวลผลใช้ sklearn pipeline และเปรียบเทียบโมเดล 6 แบบ output เป็น JSON ที่มีทั้งความน่าจะเป็น คะแนน และเหตุผล เกณฑ์ความสำเร็จมีทั้งด้านความแม่นยำ calibration fairness และความเร็ว การตัดสินใจใช้ threshold ที่คำนวณจากต้นทุน โดยถือว่าการอนุมัติคนที่จะผิดนัดแพงกว่าการปฏิเสธลูกค้าดี 5 เท่า</aside>
+</section>

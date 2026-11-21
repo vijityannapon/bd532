@@ -1,0 +1,31 @@
+<section id="api">
+<div class="head">
+<p class="eyebrow">3.6 · MODEL DEPLOYMENT AS A SERVICE</p>
+<h2>FastAPI REST service: 5 endpoints พร้อม OpenAPI</h2>
+</div>
+<div class="row grow">
+<div class="col" style="flex: 1.25;">
+<table>
+<tr class="th"><th style="width: 12%;">Method</th><th style="width: 38%;">Path</th><th style="width: 50%;">หน้าที่</th></tr>
+<tr><td>GET</td><td>/health</td><td>สถานะ + โมเดลพร้อมหรือไม่</td></tr>
+<tr><td>GET</td><td>/v1/model</td><td>version, features, thresholds, metrics</td></tr>
+<tr class="hl"><td>POST</td><td>/v1/predict</td><td>PD, score, band, เหตุผล SHAP, warnings</td></tr>
+<tr><td>POST</td><td>/v1/predict/batch</td><td>สูงสุด 100 คำขอต่อครั้ง</td></tr>
+<tr><td>POST</td><td>/v1/feedback</td><td>feedback ของเจ้าหน้าที่ + ผลการชำระจริง</td></tr>
+</table>
+<p class="small muted">Validation: pytest TestClient 22 tests + live runner 17 scenarios + Postman · Swagger ที่ /docs</p>
+</div>
+<div class="col">
+<div class="card ai"><h3>Scalability</h3>
+<ul class="t" style="margin: 0; padding-left: 28px;">
+<li>Stateless: โหลดโมเดลครั้งเดียว เพิ่ม worker/replica ได้</li>
+<li>CPU-only ~40 ms ต่อ request รวม SHAP</li>
+<li>Batch endpoint จำกัดขนาด (413) กัน overload</li>
+<li>Production: API gateway, queue/DB แทน JSONL, MLflow Registry + canary</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="pg"></div>
+<aside>หัวข้อ 3.6 โมเดลถูก deploy เป็น REST API ด้วย FastAPI มี 5 endpoint ที่สำคัญคือ predict ซึ่งคืนความน่าจะเป็น คะแนน band และเหตุผล FastAPI สร้างเอกสาร OpenAPI ให้อัตโนมัติที่ /docs การยืนยันว่า deploy แล้วทำงานถูก มีทั้ง unit test ผ่าน TestClient, script ที่ยิงไปยัง server จริง และ Postman ด้านการ scale ระบบเป็น stateless จึงเพิ่มจำนวน worker หรือ replica ได้ตรง ๆ ส่วน production ควรมี API gateway สำหรับ authentication และใช้ MLflow Model Registry สำหรับ rollback</aside>
+</section>

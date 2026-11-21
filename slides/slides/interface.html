@@ -1,0 +1,19 @@
+<section id="interface" class="alt">
+<div class="head">
+<p class="eyebrow">4.1 · UI-MODEL INTERFACE DESIGN</p>
+<h2>สัญญา payload ระหว่าง UI กับโมเดล</h2>
+</div>
+<div class="row grow">
+<div class="card">
+<p class="pill">REQUEST · POST /v1/predict</p>
+<p class="t" style="font-family: Menlo, 'Courier New', monospace; font-size: 24px; line-height: 1.45;">{ "application_id": "APP-2026-000123",<br>&#160;&#160;"explain": true, "top_k": 5,<br>&#160;&#160;"applicant": {<br>&#160;&#160;&#160;&#160;"contract_type": "Cash loans",<br>&#160;&#160;&#160;&#160;"income": 180000, "credit_amount": 500000,<br>&#160;&#160;&#160;&#160;"annuity": 25000, "age_years": 38,<br>&#160;&#160;&#160;&#160;"years_employed": 6.5, "ext_source_2": 0.62,<br>&#160;&#160;&#160;&#160;"gender": "F"  // audit only, not a feature<br>&#160;&#160;&#160;&#160;… 21 fields, enums + ranges } }</p>
+</div>
+<div class="card ai">
+<p class="pill">RESPONSE · 200 OK</p>
+<p class="t" style="font-family: Menlo, 'Courier New', monospace; font-size: 24px; line-height: 1.45;">{ "request_id": "5f0c…",<br>&#160;&#160;"model": {"name": "v6_hgb_tuned_reweighed"},<br>&#160;&#160;"prediction": {<br>&#160;&#160;&#160;&#160;"probability_of_default": 0.0731,<br>&#160;&#160;&#160;&#160;"risk_score": 556, "decision_band": "REVIEW" },<br>&#160;&#160;"explanation": { "reasons": [<br>&#160;&#160;&#160;&#160;{"label_th": "คะแนนเครดิตภายนอกเฉลี่ย",<br>&#160;&#160;&#160;&#160;&#160;"shap_value": -0.41,<br>&#160;&#160;&#160;&#160;&#160;"direction": "decreases_risk"} ] },<br>&#160;&#160;"warnings": [], "latency_ms": 41.8 }</p>
+</div>
+</div>
+<p class="small muted">Pydantic models = single source of truth → OpenAPI · extra="forbid" จับชื่อฟิลด์พิมพ์ผิด · X-Request-ID ทุก response</p>
+<div class="pg"></div>
+<aside>Section 4 คือ UI-Model Interface ฝั่งซ้ายคือ request ที่ UI ส่งมา มี application id, ตัวเลือกการอธิบาย และข้อมูลผู้กู้ 21 ฟิลด์ ทุกฟิลด์มีการกำหนด enum และช่วงค่าที่ยอมรับ gender ส่งมาได้แต่ใช้เพื่อ audit fairness เท่านั้น ไม่ได้เข้าโมเดล ฝั่งขวาคือ response มี request id สำหรับติดตาม ชื่อและเวอร์ชันโมเดล ผลทำนาย และเหตุผล ทั้งหมดนิยามด้วย Pydantic ซึ่งเป็นแหล่งความจริงเดียว และสร้างเป็นเอกสาร OpenAPI อัตโนมัติ</aside>
+</section>

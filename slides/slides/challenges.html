@@ -1,0 +1,17 @@
+<section id="challenges">
+<div class="head">
+<p class="eyebrow">4.2 · CHALLENGES &amp; SOLUTIONS</p>
+<h2>ปัญหาที่เจอจริงระหว่างพัฒนา</h2>
+</div>
+<table>
+<tr class="th"><th style="width: 46%;">ปัญหา</th><th style="width: 54%;">วิธีแก้</th></tr>
+<tr><td>โมเดล class-weighted ให้ PD เฉลี่ย ~41% (จริง ~9%)</td><td>เพิ่ม calibration gate (Brier) ในการเลือกโมเดล</td></tr>
+<tr><td>JSON เสียได้ 422 เหมือน validation error</td><td>custom handler แยกเป็น 400 MALFORMED_JSON</td></tr>
+<tr><td>ข้อมูลผ่าน schema แต่ไม่สมเหตุผล</td><td>business-rule layer → 400 พร้อมรายการฟิลด์</td></tr>
+<tr><td>SHAP ของ one-hot อ่านยาก</td><td>รวมกลับเป็นฟิลด์เดิม + label ภาษาไทย</td></tr>
+<tr><td>UI ส่งหน่วย “ปี” แต่ train ใช้ “วันติดลบ”</td><td>แยก raw → applicant และใช้ pipeline ร่วมกัน</td></tr>
+<tr><td>เก็บเพศเพื่อ audit แต่ห้ามใช้ทำนาย</td><td>รับใน request แล้วตัดทิ้งก่อนเข้าโมเดล + ทดสอบ S4</td></tr>
+</table>
+<div class="pg"></div>
+<aside>ปัญหาที่เจอจริงระหว่างพัฒนามีหลายข้อ ข้อที่สำคัญที่สุดคือโมเดลที่ใช้ class weight ให้ความน่าจะเป็นเฉลี่ยถึง 41% ทั้งที่อัตราจริงราว 9% ถ้าใช้โมเดลนี้ หน้าจอจะแสดงตัวเลขที่ผิดให้เจ้าหน้าที่ ผมจึงเพิ่ม calibration gate ข้ออื่น ๆ เป็นเรื่อง API เช่น แยก error JSON เสียออกจาก validation error เพิ่ม business rule สำหรับข้อมูลที่ขัดแย้งกัน และรวม SHAP ของ one-hot ให้อ่านง่าย รวมถึงปัญหาหน่วยไม่ตรงกันระหว่างตอน train กับตอนใช้งาน</aside>
+</section>

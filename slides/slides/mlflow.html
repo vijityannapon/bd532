@@ -1,0 +1,17 @@
+<section id="mlflow" class="alt">
+<div class="head">
+<p class="eyebrow">3.3 · MLFLOW TRACKING UI</p>
+<h2>เลือกโมเดลด้วยกฎ 3 ขั้น ไม่ใช่ AUC อย่างเดียว</h2>
+</div>
+<div class="row grow">
+<img class="shot" src="/_blob/971940173eb2c03575c20c57d4a6133b" alt="MLflow Tracking UI เปรียบเทียบ 6 runs: val ROC-AUC, PR-AUC, gender FPR gap และ latency" style="width: 800px; height: 624px;">
+<div class="col">
+<div class="card"><p class="pill">1 · Calibration gate</p><p class="t">Brier ≤ 1.10 × ตัวที่ดีที่สุด → ตัด v3</p></div>
+<div class="card"><p class="pill">2 · Discrimination</p><p class="t">ROC-AUC สูงสุด โดยต่างกัน ≤ 0.003 ถือว่าเท่ากัน → v5, v6</p></div>
+<div class="card ai"><p class="pill">3 · Fairness → latency</p><p class="t">gender FPR gap ต่ำสุด → เลือก <b>v6_hgb_tuned_reweighed</b></p></div>
+<p class="small muted">ทุก run log params, metrics, fairness CSV และ model · 5-fold CV ของตัวที่เลือก 0.756 ± 0.005</p>
+</div>
+</div>
+<div class="pg"></div>
+<aside>นี่คือ MLflow Tracking UI จริง เทียบทั้ง 6 run ใน 4 metric หลัก การเลือกโมเดลใช้กฎ 3 ขั้นที่เขียนไว้ในโค้ด ขั้นแรกคือ calibration gate ตัดโมเดลที่ความน่าจะเป็นเพี้ยน ขั้นที่สองเลือก AUC สูงสุด โดยถือว่าต่างกันไม่เกิน 0.003 คือเท่ากัน ขั้นสุดท้ายใช้ fairness ตัดสิน ได้ v6 ผล cross-validation 5 fold ได้ 0.756 บวกลบ 0.005 แสดงว่าโมเดลเสถียร</aside>
+</section>

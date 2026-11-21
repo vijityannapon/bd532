@@ -1,0 +1,36 @@
+<section id="workflow">
+<div class="head">
+<p class="eyebrow">2.2.1 · BUSINESS WORKFLOW &amp; AI TASKS</p>
+<h2>AI แทรกอยู่ 4 จุดใน workflow สินเชื่อ</h2>
+</div>
+<div class="flow">
+<div class="card"><h3>ยื่นคำขอ</h3><p class="t">สาขา / ออนไลน์</p></div>
+<x-connector class="arr"></x-connector>
+<div class="card"><h3>บันทึก + bureau</h3><p class="t">ตรวจเอกสาร ดึงคะแนนเครดิต</p></div>
+<x-connector class="arr"></x-connector>
+<div class="card ai"><h3>AI 1 · Predict</h3><p class="t">validate input แล้วทำนาย PD</p></div>
+<x-connector class="arr"></x-connector>
+<div class="card ai"><h3>AI 2 · Explain</h3><p class="t">เหตุผล SHAP ภาษาไทย</p></div>
+<x-connector class="arr"></x-connector>
+<div class="card"><h3>แบ่ง 3 band</h3><p class="t">LOW / REVIEW / HIGH</p></div>
+</div>
+<div class="flow">
+<div class="card"><h3>เจ้าหน้าที่ตัดสินใจ</h3><p class="t">APPROVE / REFER / DECLINE</p></div>
+<x-connector class="arr"></x-connector>
+<div class="card ai"><h3>AI 3 · Feedback</h3><p class="t">เห็นด้วยหรือไม่ + เหตุผล</p></div>
+<x-connector class="arr"></x-connector>
+<div class="card"><h3>เบิกจ่าย + ติดตาม</h3><p class="t">ผลการชำระจริง = label ใหม่</p></div>
+<x-connector class="arr"></x-connector>
+<div class="card ai"><h3>AI 4 · Monitor</h3><p class="t">drift, fairness, retrain ใน MLflow</p></div>
+<x-connector class="arr"></x-connector>
+<div class="card"><h3>โมเดลใหม่</h3><p class="t">กลับไปที่ AI 1</p></div>
+</div>
+<div class="row center" style="gap: 16px;">
+<p class="pill">สีฟ้า = งานของ AI</p>
+<p class="pill low">LOW_RISK → ตรวจตามปกติ</p>
+<p class="pill mid">REVIEW → ตรวจรายได้เพิ่ม</p>
+<p class="pill high">HIGH_RISK → ส่ง senior review</p>
+</div>
+<div class="pg"></div>
+<aside>นี่คือ business workflow ของการพิจารณาสินเชื่อ กล่องสีฟ้าคือจุดที่ AI เข้าไปช่วย 4 จุด AI 1 รับข้อมูลคำขอ ตรวจความถูกต้อง แล้วทำนายโอกาสผิดนัดหรือ PD AI 2 อธิบายเหตุผลด้วย SHAP เป็นภาษาไทย จากนั้นระบบแบ่งเป็น 3 band เพื่อกำหนดว่าเจ้าหน้าที่ต้องตรวจละเอียดแค่ไหน เจ้าหน้าที่เป็นคนตัดสินใจเสมอ แล้วส่ง feedback กลับมาคือ AI 3 เมื่อมีผลการชำระจริง ข้อมูลนี้จะกลายเป็น label ใหม่ให้ AI 4 ใช้ monitor และ retrain โมเดล สถาปัตยกรรมระบบแบบละเอียดอยู่ในรายงานหัวข้อ 2.2.1</aside>
+</section>

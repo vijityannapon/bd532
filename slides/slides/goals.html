@@ -1,0 +1,16 @@
+<section id="goals" class="alt">
+<div class="head">
+<p class="eyebrow">2.1 · SYSTEM OBJECTIVES</p>
+<h2>เป้าหมาย 4 ระดับ พร้อมตัวชี้วัด</h2>
+</div>
+<table>
+<tr class="th"><th style="width: 15%;">ระดับ</th><th style="width: 37%;">เป้าหมาย</th><th style="width: 48%;">Measurement → Operationalization</th></tr>
+<tr><td>Organization</td><td>ลดหนี้เสียของสินเชื่อใหม่ ตัดสินใจเร็วขึ้น</td><td>Leading: First Payment Default / 30+ DPD ใน 3 เดือน ลด 15%; ตัดสินใจภายใน 1 วัน ≥ 70%</td></tr>
+<tr><td>System</td><td>คะแนนพร้อมเหตุผลแบบ real-time และตรวจสอบได้</td><td>p95 latency &lt; 300 ms, availability ≥ 99.5%, log ทุก prediction พร้อม model version</td></tr>
+<tr><td>User</td><td>เจ้าหน้าที่เร็วขึ้นและเข้าใจ AI · ผู้กู้ได้รับความเป็นธรรม</td><td>เวลาต่อคำขอ ≤ 20 นาที, feedback rate ≥ 30%, Disparate Impact ≥ 0.8</td></tr>
+<tr><td>Model</td><td>แยกผู้กู้ดี/ไม่ดี ให้ PD ที่ calibrated และเป็นธรรม</td><td>ROC-AUC ≥ 0.75, KS ≥ 0.35, Brier ≤ baseline, gender FPR gap ≤ 0.05</td></tr>
+</table>
+<p class="small muted">Data collection: prediction log + ระบบติดตามหนี้ (label ล่าช้า 3–12 เดือน) + feedback จาก UI · retrain เมื่อ AUC ลด &gt; 0.03 หรือ PSI &gt; 0.25</p>
+<div class="pg"></div>
+<aside>Section 2 คือ System Design เริ่มจากเป้าหมาย 4 ระดับตามโจทย์ ระดับองค์กรคือลดหนี้เสีย โดยใช้ leading indicator เป็น First Payment Default ซึ่งเห็นผลภายใน 3 เดือน ไม่ต้องรอ NPL 12 เดือน ระดับระบบคือ latency และการ log ระดับผู้ใช้แบ่งเป็นเจ้าหน้าที่และผู้กู้ ส่วนระดับโมเดลคือ AUC, KS, calibration และ fairness ทุกเป้าหมายมี measurement, แหล่งเก็บข้อมูล และวิธี operationalize ซึ่งรายละเอียดอยู่ในตาราง 2.1.2 ของรายงาน</aside>
+</section>
