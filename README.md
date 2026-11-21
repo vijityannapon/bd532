@@ -13,7 +13,6 @@ BD532 Term Project · ระบบ AI ช่วยเจ้าหน้าที
 | 2. System Design (goals, workflow, REQ/SPEC/ENV, ML Canvas, FTA/MCS, UX, deployment) | [docs/02_system_design.md](docs/02_system_design.md) | — |
 | 3. ML Implementation (EDA, training, fairness, MLflow, SHAP, API) | [docs/03_ml_implementation.md](docs/03_ml_implementation.md) | `src/credit_risk/`, `api/` |
 | 4. UI-Model Interface (payloads, errors, sequence diagram, tests) | [docs/04_ui_model_interface.md](docs/04_ui_model_interface.md) | `api/`, `postman/`, `scripts/` |
-| 5. Conclusion, reflection, path to IS | [docs/05_conclusion.md](docs/05_conclusion.md) | — |
 | **Report (PDF)** | [report/BD532_TermProject_Report.pdf](report/BD532_TermProject_Report.pdf) | `scripts/build_report.py` |
 | **Slides (PDF)** | [report/BD532_TermProject_Slides.pdf](report/BD532_TermProject_Slides.pdf) (26 slides, speaker notes in `slides/slides/*.html` `<aside>`) | `slides/` |
 | Generated results | [reports/results.md](reports/results.md), [reports/eda/eda_summary.md](reports/eda/eda_summary.md), [reports/interface_test_results.md](reports/interface_test_results.md) | |
@@ -44,7 +43,7 @@ bd532-credit-risk/
 ├── data/raw/            # put application_train.csv here (not committed)
 ├── models/              # exported model bundle (.joblib)
 ├── reports/             # generated EDA, results, figures, interface test results
-├── docs/                # report sections 1–5 (+ images/ screenshots)
+├── docs/                # report sections 1–4 (+ images/ screenshots)
 └── report/              # final PDF report
 ```
 
@@ -111,7 +110,7 @@ python scripts/plot_fairness.py          # after training: fairness comparison c
 python scripts/build_report.py --author "ชื่อ นามสกุล" --student-id 6XXXXXXXX \
     --github https://github.com/<user>/bd532-credit-risk
 ```
-ผลลัพธ์อยู่ที่ `report/BD532_TermProject_Report.pdf` โดยเนื้อหามาจาก `docs/01–05` ถ้าแก้ docs แล้วให้รันคำสั่งนี้ใหม่
+ผลลัพธ์อยู่ที่ `report/BD532_TermProject_Report.pdf` โดยเนื้อหามาจาก `docs/01–04` ถ้าแก้ docs แล้วให้รันคำสั่งนี้ใหม่
 
 ## API quick reference
 

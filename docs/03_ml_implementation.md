@@ -163,4 +163,3 @@
   * โมเดลเล็ก (1.5 MB) และ CPU-only latency ~40 ms ต่อ request รวม SHAP
   * Batch endpoint สำหรับ re-score พอร์ต และมีการจำกัดขนาด (413) เพื่อป้องกัน overload
   * ถ้าต้องการเร็วขึ้น: คำนวณ SHAP แบบ on-demand (`explain=false` สำหรับ batch) หรือใช้ v5 ที่เร็วกว่า 2 เท่า
-  * Production: เปลี่ยน JSONL log เป็น message queue/DB, ใส่ API gateway (auth, rate limit), ใช้ MLflow Model Registry สำหรับ promote/rollback และใช้ canary deploy เวอร์ชันใหม่

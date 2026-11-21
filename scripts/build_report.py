@@ -1,4 +1,4 @@
-"""Build the term-project report PDF from docs/*.md (Sections 1-5).
+"""Build the term-project report PDF from docs/*.md (Sections 1-4).
 
     python scripts/build_report.py --author "ชื่อ นามสกุล" --student-id 6XXXXXXXX \
         --github https://github.com/<user>/bd532-credit-risk
@@ -28,7 +28,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
 OUT_DIR = ROOT / "report"
 SECTIONS = ["01_project_proposal.md", "02_system_design.md", "03_ml_implementation.md",
-            "04_ui_model_interface.md", "05_conclusion.md"]
+            "04_ui_model_interface.md"]
 CHROME_CANDIDATES = [
     "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
     "google-chrome", "google-chrome-stable", "chromium", "chromium-browser",
@@ -168,7 +168,7 @@ def build_html(args) -> Path:
     cover = f"""
 <section class="cover">
   <div class="top">
-    <div class="course">BD532 · Term Project · ระบบที่ใช้ AI สู่ Independent Study</div>
+    <div class="course">BD532 · Term Project</div>
     <h0>CreditLens</h0>
     <div class="sub">ระบบ AI ช่วยพิจารณาความเสี่ยงสินเชื่อแบบอธิบายได้<br>
       Explainable AI-assisted Loan Default Risk Assessment</div>
