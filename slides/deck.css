@@ -40,7 +40,7 @@ h3 { font-size: 34px; font-weight: 600; line-height: 1.25; }
 p { margin: 0; font-size: 30px; }
 
 .head { display: flex; flex-direction: column; gap: 8px; }
-.eyebrow { font-family: 'Kanit', Tahoma, sans-serif; font-size: 24px; font-weight: 600; color: var(--accent); letter-spacing: 2px; }
+.eyebrow { font-family: 'Kanit', Tahoma, sans-serif; font-size: 24px; font-weight: 600; color: var(--accent); }
 .dark .eyebrow { color: #9DB3FF; }
 .accent .eyebrow { color: #DCE4FC; }
 .lead { font-size: 34px; color: var(--muted); line-height: 1.4; }
